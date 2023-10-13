@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  eventstest:
+    image: ${DOCKER_REGISTRY-}eventstest
+    networks:
+      - my-network
+    build:
+      context: .
+      dockerfile: EventsTest/Dockerfile
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    restart: always     
+    networks:
+      - my-network
+    ports:
+      - 5672:5672
+      - 15672:15672
+networks:
+  my-network:
+    external: true 
